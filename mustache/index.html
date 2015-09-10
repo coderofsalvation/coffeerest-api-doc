@@ -1,0 +1,2161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+
+  <title>{{name}} API documentation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii">
+  <meta name="generator" content=
+  "https://github.com/kevinrenskers/raml2html 1.6.0">
+  <link rel="stylesheet" href=
+  "https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+  type="text/css">
+  <link rel="stylesheet" href=
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"
+  type="text/css">
+  <script type="text/javascript" src=
+  "https://code.jquery.com/jquery-1.11.0.min.js">
+</script>
+  <script type="text/javascript" src=
+  "https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">
+</script>
+  <script type="text/javascript" src=
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js">
+</script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+            $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+
+            $('[data-toggle]').click(function() {
+                var selector = $(this).data('target') + ' pre code';
+                $(selector).each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });
+            });
+            
+            
+            // open modal on hashes like #_action_get
+            $(window).bind('hashchange', function(e) {
+                var anchor_id = document.location.hash.substr(1); //strip #
+                var element = $('#' + anchor_id);
+
+                // do we have such element + is it a modal?  --> show it
+                if (element.length && element.hasClass('modal')) {
+                    element.modal('show');
+                }
+            });
+
+            // execute hashchange on first page load
+            $(window).trigger('hashchange');
+            
+            // remove url fragment on modal hide
+            $('.modal').on('hidden.bs.modal', function() {
+                if(history && history.replaceState) { 
+                    history.replaceState({}, '', '#');
+                }
+            });
+        });
+  </script>
+  <style type="text/css">
+      .hljs {
+            background: transparent;
+        }
+        .parent {
+            color: #999;
+        }
+        .list-group-item > .badge {
+            float: none;
+            margin-right: 6px;
+        }
+        .panel-title > .methods {
+            float: right;
+        }
+        .badge {
+            border-radius: 0;
+            text-transform: uppercase;
+            width: 70px;
+            font-weight: normal;
+            color: #f3f3f6;
+            line-height: normal;
+        }
+        .badge_get {
+            background-color: #63a8e2;
+        }
+        .badge_post {
+            background-color: #6cbd7d;
+        }
+        .badge_put {
+            background-color: #22bac4;
+        }
+        .badge_delete {
+            background-color: #d26460;
+        }
+        .badge_patch {
+            background-color: #ccc444;
+        }
+        .list-group, .panel-group {
+            margin-bottom: 0;
+        }
+        .panel-group .panel+.panel-white {
+            margin-top: 0;
+        }
+        .panel-group .panel-white {
+            border-bottom: 1px solid #F5F5F5;
+            border-radius: 0;
+        }
+        .panel-white:last-child {
+            border-bottom-color: white;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .panel-white .panel-heading {
+            background: white;
+        }
+        .tab-pane ul {
+            padding-left: 2em;
+        }
+        .tab-pane h2 {
+            font-size: 1.2em;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab-pane h3 {
+            font-size: 1.1em;
+        }
+        .tab-content {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+        #sidebar {
+            margin-top: 30px;
+            padding-right: 5px;
+            overflow: auto;
+            height: 90%;
+        }
+        .top-resource-description {
+            border-bottom: 1px solid #ddd;
+            background: #fcfcfc;
+            padding: 15px 15px 0 15px;
+            margin: -15px -15px 10px -15px;
+        }
+        .resource-description {
+            border-bottom: 1px solid #fcfcfc;
+            background: #fcfcfc;
+            padding: 15px 15px 0 15px;
+            margin: -15px -15px 10px -15px;
+        }
+        .resource-description p:last-child {
+            margin: 0;
+        }
+        .list-group .badge {
+            float: left;
+        }
+        .method_description {
+            margin-left: 85px;
+        }
+        .method_description p:last-child {
+            margin: 0;
+        }
+        .list-group-item {
+            cursor: pointer;
+        }
+        .list-group-item:hover {
+            background-color: #f5f5f5;
+        }
+  </style>
+</head>
+
+<body data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="page-header">
+          <h1>{{name}} API documentation <small>version
+          1</small></h1>
+
+          <p>{{{host}}}</p>
+
+          <h3><a href="#"></a></h3>
+
+          <center>
+            <img src="{{{logo}}}" style="width:20%">
+          </center><br>
+          {{{description}}}
+
+          <h3 id="Getting-started"><a href=
+          "#Getting-started">Getting started</a></h3>
+
+          <div>
+            <button class="btn btn-primary" type="button"
+            data-toggle="collapse" data-target="#collapseExample"
+            aria-expanded="false" aria-controls=
+            "collapseExample">Click here for Connector
+            Code!</button>
+
+            <div class="collapse" id="collapseExample">
+              <div class="well">
+                To connect to the core api is easy, here are some
+                connectors:<br>
+                <br>
+
+                <h2>CURL commandline</h2>
+                <pre style="background-color:#FFF">
+<code>  $ curl -H 'x-{{{name}}}-token: 3909334aba998a90c78a0' -H 'Content-Type: application/json' -X POST <a href="{{{host}}}/user">{{{host}}}/user</a> --data '{}'
+  </code>
+</pre>
+
+                <h2>JAVASCRIPT</h2>
+                <pre style="background-color:#FFF">
+<code>  var req    = require('request');
+  var apikey = "3909334aba998a90c78a0";
+  var host   = '<a href="{{{host}}}">{{{host}}}</a>';
+
+  req.get({
+    headers: {
+      'x-{{{name}}}-token': apikey
+    },
+    url: host + '/user'
+  }, function(error, response, body) {
+    // do something with response
+    return !error &amp;&amp; response.statusCode === 200 &amp;&amp; response.body;
+  });
+  </code>
+</pre>
+
+                <h2>COFFEESCRIPT</h2>
+                <pre style="background-color:#FFF">
+<code>  req   = require('request')
+  apikey = "3909334aba998a90c78a0"
+  host  = '<a href="{{{host}}}">{{{host}}}</a>'
+
+  req.get {
+    headers: { 'x-{{{name}}}-token': apikey }
+    url:host+'/user'<br>  }, (error, response, body) -&gt;
+    ok = (!error and response.statusCode == 200 and response.body)<br>  </code>
+</pre>
+
+                <h2>PHP</h2>
+                <pre style="background-color:#FFF">
+<code>  $json = json_encode( (object)array("foo" =&gt; "bar") );
+  $resource = "/user";
+  $ch = curl_init('<a href=
+"{{{host}}}'.$resource">{{{host}}}'.$resource</a>);<br>  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");<br>  curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);<br>  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);<br>  curl_setopt($ch, CURLOPT_HTTPHEADER, array(<br>    'Content-Type: application/json',<br>    'Content-Length: ' . strlen($data_string))<br>  );<br>  $result = curl_exec($ch);<br>  // HINT: use a REST client like <a href="https://github.com/bproctor/rest">https://github.com/bproctor/rest</a>
+  //       or install one using composer: <a href=
+"http://getcomposer.org">http://getcomposer.org</a>
+  </code>
+</pre>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button class="btn btn-primary" type="button"
+            data-toggle="collapse" data-target="#collapseError"
+            aria-expanded="false" aria-controls=
+            "collapseExample">Errorcodes and Error
+            checking</button>
+
+            <div class="collapse" id="collapseError">
+              <div class="well">
+                <h2>Normal reply (excluding return data):</h2>
+                <pre>
+<code>{{{replyschema_payload}}}</code>
+</pre>
+
+                <h2>Possible return/errorcodes:</h2>
+                <pre>
+<code>{{{replyschema_codes}}}</code>
+</pre>
+              </div>
+            </div><br>
+            <br>
+
+<!--
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 id="_notify" class="panel-title">NOTIFY</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-group">
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__notify_"><span class=
+                      "parent">/notify</span>/</a> <span class=
+                      "methods"><a href=
+                      "#_notify__post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__notify_" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_notify__post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>notify user</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_notify__post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/notify</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>notify user</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_notify__post_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_notify__post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "city": "amsterdam",
+  "type": "rent",
+  "digest": "1h",
+  "test": false,
+  "ignore_sent": true,
+  "ignore_sent_marking": false,
+  "email": "john@doe.com"
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 id="_city" class="panel-title">CITY</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-group">
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__city_"><span class=
+                      "parent">/city</span>/</a> <span class=
+                      "methods"><a href="#_city__get"><span class=
+                      "badge badge_get">get </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__city_" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_city__get'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_get">get</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_city__get">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_get">get</span>
+                            <span class="parent">/city</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_city__get_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_city__get_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 id="_ad" class="panel-title">AD</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-group">
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ad__city__type"><span class=
+                      "parent">/ad</span>/:city/:type</a>
+                      <span class="methods"><a href=
+                      "#_ad__city__type_get"><span class=
+                      "badge badge_get">get </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ad__city__type" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ad__city__type_get'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_get">get</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ad__city__type_get">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_get">get</span>
+                            <span class=
+                            "parent">/ad</span>/:city/:type</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ad__city__type_get_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ad__city__type_get_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ad__city"><span class=
+                      "parent">/ad</span>/:city</a> <span class=
+                      "methods"><a href=
+                      "#_ad__city_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ad__city" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ad__city_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ad__city_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ad</span>/:city</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ad__city_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ad__city_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "url": "www.foo.com/bar.html",
+  "price": {
+    "amount": 500,
+    "currency": "EURO"
+  },
+  "title": "Apartment at foo street",
+  "date": {
+    "created": "2015-04-03T01:15:28.974Z"
+  },
+  "type": "2015-01-01 00:00:00"
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 id="_user" class="panel-title">USER</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-group">
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__user_"><span class=
+                      "parent">/user</span>/</a> <span class=
+                      "methods"><a href="#_user__post"><span class=
+                      "badge badge_post">post </span></a> <a href=
+                      "#_user__get"><span class=
+                      "badge badge_get">get </span></a> <a href=
+                      "#_user__delete"><span class=
+                      "badge badge_delete">delete </span></a>
+                      <a href="#_user__put"><span class=
+                      "badge badge_put">put </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__user_" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_user__post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div onclick=
+                          "window.location.href = '#_user__get'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_get">get</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div onclick=
+                          "window.location.href = '#_user__delete'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_delete">delete</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div onclick=
+                          "window.location.href = '#_user__put'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_put">put</span>
+
+                            <div class="method_description">
+                              <p>use monquery queries and mongo
+                              update objects to update an user in
+                              the db</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user__post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class="parent">/user</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user__post_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user__post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "version": 2,
+  "name": "John Doe",
+  "email": "your@email.com",
+  "user": "your name",
+  "pass": "your password",
+  "country": "Hungary",
+  "apikey": "llk23kj42l234ert",
+  "date": "2015-04-16T11:37:51.744Z",
+  "_id": "13f304cde546",
+  "notification": [
+    {
+      "version": 2,
+      "date_register": "2015-04-16T11:37:51.744Z",
+      "active": true,
+      "digest": "1h",
+      "city": "Budapest",
+      "state": "idle",
+      "type": "rent",
+      "log": [
+        {
+          "date": "2015-04-16T11:37:51.744Z",
+          "msg": "event foo happened"
+        }
+      ],
+      "filter": {
+        "size_max": 300,
+        "size_min": 15,
+        "size_allow_unknown": false,
+        "currency": "EURO",
+        "price_max": 999999,
+        "price_min": 300
+      }
+    }
+  ]
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user__get">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_get">get</span>
+                            <span class="parent">/user</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user__get_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user__get_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user__delete">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_delete">delete</span>
+                            <span class="parent">/user</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user__delete_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user__delete_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "id": "23fd28d27d238f82038f238f",
+  "email": "foo@gmail.com"
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user__put">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_put">put</span>
+                            <span class="parent">/user</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>use monquery queries and mongo
+                              update objects to update an user in
+                              the db</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user__put_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user__put_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "query": "email:'foo@bar*' AND digest:'15m'",
+  "update": {}
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__user_search"><span class=
+                      "parent">/user</span>/search</a> <span class=
+                      "methods"><a href=
+                      "#_user_search_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__user_search" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_user_search_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user_search_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/user</span>/search</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>refer to jsonschema for optional
+                              vs mandatory fields</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user_search_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user_search_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__user_notification"><span class=
+                      "parent">/user</span>/notification</a>
+                      <span class="methods"><a href=
+                      "#_user_notification_post"><span class=
+                      "badge badge_post">post </span></a> <a href=
+                      "#_user_notification_delete"><span class=
+                      "badge badge_delete">delete </span></a>
+                      <a href=
+                      "#_user_notification_put"><span class="badge badge_put">
+                      put </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__user_notification" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_user_notification_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>This will add a notification plan.
+                              Either the 'id' or 'email' (or both)
+                              should be passed to specify the
+                              user.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div onclick=
+                          "window.location.href = '#_user_notification_delete'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_delete">delete</span>
+
+                            <div class="method_description">
+                              <p>This will deactivate a
+                              notification plan: the 'active'-field
+                              will be set to false. However,
+                              passing 'erase:true' would remove the
+                              notification and all its
+                              loghistory.<br>
+                              <br>
+                              Either the 'id' or 'email' (or both)
+                              should be passed to specify the
+                              user.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div onclick=
+                          "window.location.href = '#_user_notification_put'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_put">put</span>
+
+                            <div class="method_description">
+                              <p>This will update a notification
+                              plan. Either the 'id' or 'email' (or
+                              both) should be passed to specify the
+                              user.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user_notification_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/user</span>/notification</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>This will add a notification plan.
+                              Either the 'id' or 'email' (or both)
+                              should be passed to specify the
+                              user.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user_notification_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user_notification_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "user": {
+    "id": "ab8da7b9d8ab9d8a7b8d9a8b",
+    "email": "foo@bar.com"
+  },
+  "notification": [
+    {
+      "version": 2,
+      "date_register": "2015-04-16T11:37:51.744Z",
+      "active": true,
+      "digest": "1h",
+      "city": "Budapest",
+      "state": "idle",
+      "type": "rent",
+      "log": [
+        {
+          "date": "2015-04-16T11:37:51.744Z",
+          "msg": "event foo happened"
+        }
+      ],
+      "filter": {
+        "size_max": 300,
+        "size_min": 15,
+        "size_allow_unknown": false,
+        "currency": "EURO",
+        "price_max": 999999,
+        "price_min": 300
+      }
+    }
+  ]
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user_notification_delete">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_delete">delete</span>
+                            <span class=
+                            "parent">/user</span>/notification</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>This will deactivate a
+                              notification plan: the 'active'-field
+                              will be set to false. However,
+                              passing 'erase:true' would remove the
+                              notification and all its
+                              loghistory.<br>
+                              <br>
+                              Either the 'id' or 'email' (or both)
+                              should be passed to specify the
+                              user.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user_notification_delete_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user_notification_delete_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "erase": false,
+  "user": {
+    "id": "ab8da7b9d8ab9d8a7b8d9a8b",
+    "email": "foo@bar.com"
+  },
+  "notification": [
+    {
+      "type": "rent",
+      "city": "amsterdam"
+    }
+  ]
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user_notification_put">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_put">put</span>
+                            <span class=
+                            "parent">/user</span>/notification</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>This will update a notification
+                              plan. Either the 'id' or 'email' (or
+                              both) should be passed to specify the
+                              user.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user_notification_put_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user_notification_put_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+
+                                <p><strong>Example</strong>:</p>
+                                <pre>
+<code>{
+  "id": "ab8da7b9d8ab9d8a7b8d9a8b",
+  "email": "foo@bar.com",
+  "type": "rent",
+  "city": "amsterdam",
+  "update": {
+    "active": true,
+    "digest": true,
+    "payment": true
+  }
+}
+</code>
+</pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__user_notification__city__type__userid">
+                      <span class=
+                      "parent">/user</span>/notification/:city/:type/:userid</a>
+                      <span class="methods"><a href=
+                      "#_user_notification__city__type__userid_get">
+                      <span class="badge badge_get">get
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id=
+                    "panel__user_notification__city__type__userid"
+                    class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_user_notification__city__type__userid_get'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_get">get</span>
+
+                            <div class="method_description">
+                              <p>This will retrieve a
+                              notification.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_user_notification__city__type__userid_get">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_get">get</span>
+                            <span class=
+                            "parent">/user</span>/notification/:city/:type/:userid</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>This will retrieve a
+                              notification.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_user_notification__city__type__userid_get_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_user_notification__city__type__userid_get_request">
+                              <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 id="_ehb" class="panel-title">EHB</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-group">
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ehb_start"><span class=
+                      "parent">/ehb</span>/start</a> <span class=
+                      "methods"><a href=
+                      "#_ehb_start_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ehb_start" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ehb_start_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ehb_start_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ehb</span>/start</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ehb_start_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ehb_start_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ehb_stop"><span class=
+                      "parent">/ehb</span>/stop</a> <span class=
+                      "methods"><a href=
+                      "#_ehb_stop_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ehb_stop" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ehb_stop_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ehb_stop_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ehb</span>/stop</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ehb_stop_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ehb_stop_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ehb_status"><span class=
+                      "parent">/ehb</span>/status</a> <span class=
+                      "methods"><a href=
+                      "#_ehb_status_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ehb_status" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ehb_status_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ehb_status_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ehb</span>/status</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ehb_status_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ehb_status_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ehb_maintenance"><span class=
+                      "parent">/ehb</span>/maintenance</a>
+                      <span class="methods"><a href=
+                      "#_ehb_maintenance_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ehb_maintenance" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ehb_maintenance_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ehb_maintenance_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ehb</span>/maintenance</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ehb_maintenance_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ehb_maintenance_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ehb_backup"><span class=
+                      "parent">/ehb</span>/backup</a> <span class=
+                      "methods"><a href=
+                      "#_ehb_backup_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ehb_backup" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ehb_backup_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ehb_backup_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ehb</span>/backup</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ehb_backup_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ehb_backup_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__ehb_cleanup"><span class=
+                      "parent">/ehb</span>/cleanup</a> <span class=
+                      "methods"><a href=
+                      "#_ehb_cleanup_post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__ehb_cleanup" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_ehb_cleanup_post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_ehb_cleanup_post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class=
+                            "parent">/ehb</span>/cleanup</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>The Emergency-Break-Hooks are
+                              macro-api-calls which can 'pause' the
+                              api.<br>
+                              For more info see <a href=
+                              "http://coderofsalvation.github.io/2014/11/10/EBH-emergency-break-hooks-to%20minimize-risks-for-your-webservice/"
+                              target="_blank">here</a>.</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_ehb_cleanup_post_request"
+                              data-toggle="tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_ehb_cleanup_post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 id="_test" class="panel-title">TEST</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="panel-group">
+                  <div class="panel panel-white">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a class="collapsed"
+                      data-toggle="collapse" href=
+                      "#panel__test_"><span class=
+                      "parent">/test</span>/</a> <span class=
+                      "methods"><a href="#_test__post"><span class=
+                      "badge badge_post">post
+                      </span></a></span></h4>
+                    </div>
+
+                    <div id="panel__test_" class=
+                    "panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="resource-description">
+                          <p>flopje</p>
+                        </div>
+
+                        <div class="list-group">
+                          <div onclick=
+                          "window.location.href = '#_test__post'"
+                          class="list-group-item">
+                            <span class=
+                            "badge badge_post">post</span>
+
+                            <div class="method_description">
+                              <p>This triggers the testsuite</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="0" id=
+                    "_test__post">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden=
+                            "true">&#215;</button>
+
+                            <h4 class="modal-title" id=
+                            "myModalLabel"><span class=
+                            "badge badge_post">post</span>
+                            <span class="parent">/test</span>/</h4>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="alert alert-info">
+                              <p>This triggers the testsuite</p>
+                            </div>
+
+                            <div class="alert alert-warning">
+                              Secured by x-{{{name}}}-token
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a href=
+                              "#_test__post_request" data-toggle=
+                              "tab">Request</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id=
+                              "_test__post_request">
+                                <h3>Body</h3>
+
+                                <p><strong>Type:
+                                application/json</strong></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div id="sidebar" class="hidden-print affix" role=
+            "complementary">
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="#_notify">NOTIFY</a></li>
+
+                <li><a href="#_city">CITY</a></li>
+
+                <li><a href="#_ad">AD</a></li>
+
+                <li><a href="#_user">USER</a></li>
+
+                <li><a href="#_ehb">EHB</a></li>
+
+                <li><a href="#_test">TEST</a></li>
+              </ul>
+            </div>
+-->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
