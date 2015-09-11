@@ -9,7 +9,6 @@
   "author": "",
   "repository": "https://github.com/coderofsalvation/coffeerest-api-doc",
   "keywords": ["coffeerest","coffeescript","rest","api","documentation","generator","documenter"],
-  "repository":
   "license": "ISC",
   "dependencies": {
     "json-schema-defaults": "^0.1.1",
