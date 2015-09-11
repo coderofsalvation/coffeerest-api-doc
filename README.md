@@ -1,25 +1,38 @@
-coffeerest-api
-==============
+coffeerest-api-doc
+==================
 Unfancy rest apis
 
 <img alt="" src="https://github.com/coderofsalvation/coffeerest-api/raw/master/coffeerest.png" width="20%" />
 
+Automatic documentation generator extension for coffeerest-api
+
 ## Ouch! Is it that simple?
 
-Your `model.coffee` specification 
+Just add these fields to your coffeerest-api `model.coffee` specification 
 
-    module.exports = 
-      name: "project foo"
-      resources:
-        '/book/:category':
-          post:
-            description: 'adds a book'
-            payload:
-              foo:  
-                type: "string", 
-                minLength: 5, 
-                required: true 
-                default: "foobar"            <-------- 
+           module.exports = 
+             name: "project foo"
+    --->     doc:
+    --->       version: 1
+    --->       projectname: "Project foo"
+    --->       logo: "https://github.com/coderofsalvation/coffeerest-api/raw/master/coffeerest.png"
+    --->       host: "http://mydomain.com"
+    --->       homepage: "http://mydomain.com/about"
+    --->       security: "Requests are authorized by adding a 'X-Project-foo: YOURTOKEN' http header"
+    --->       description: "Welcome to the Core API Documentation. The Core API is the heart of Project foo and should never be confused with the public api."
+    --->       request: 
+    --->         curl: "curl -X {{method}} -H 'Content-Type: application/json' -H 'X-Project-Token: YOURTOKEN' '{{url}}' --data '{{payload}}' "
+             resources:
+               '/book/:category':
+                 post:
+    --->           description: 'adds a book'
+    --->           notes: "does not accept duplicates"
+                   payload:
+                     foo:  
+                       type: "string", 
+                       minLength: 5, 
+                       required: true 
+    --->               default: "foobar"              
 
 ## Usage 
 
@@ -31,35 +44,8 @@ for servercode see [coffeerest-api](https://www.npmjs.com/package/coffeerest-api
 ## Example output: markdown
 
     $ coffee server.coffee &
-    $ curl -H 'Content-Type: application/json' http://localhost:8080/v1/doc/markdown 
-    JSON API
-    ========
-    Documentation of project foo /v1 API endpoints
+    $ curl -H 'Content-Type: application/json' http://localhost:8080/v1/doc/markdown > apidoc.md
+    $ curl -H 'Content-Type: application/json' http://localhost:8080/v1/doc/html     > index.html 
 
-    ### GET /v1/books/:action
-
-    do something with a book
-
-    ### POST /v1/book
-
-    adds a book
-
-    Example payload:
-
-         {
-           "foo": "bar"
-         }
-
-    JSON Schema:
-
-         {
-           "foo": {
-             "type": "string",
-             "minLength": 5,
-             "required": true,
-             "default": "bar"
-           }
-         }
-
-
-
+Voila, you have a wonderful markdown document which explains your API.
+As a BONUS you get a beautifull html too, which uses bootstrap css.
