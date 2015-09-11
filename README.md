@@ -6,6 +6,8 @@ Unfancy rest apis
 
 Automatic documentation generator extension for coffeerest-api
 
+<img alt="" src="https://raw.githubusercontent.com/coderofsalvation/coffeerest-api-doc/master/screenshot.png"/>
+
 ## Ouch! Is it that simple?
 
 Just add these fields to your coffeerest-api `model.coffee` specification 
