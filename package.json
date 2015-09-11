@@ -1,13 +1,15 @@
 {
   "name": "coffeerest-api-doc",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
+  "repository": "https://github.com/coderofsalvation/coffeerest-api-doc",
   "keywords": ["coffeerest","coffeescript","rest","api","documentation","generator","documenter"],
+  "repository":
   "license": "ISC",
   "dependencies": {
     "json-schema-defaults": "^0.1.1",
