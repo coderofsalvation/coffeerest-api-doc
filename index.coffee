@@ -39,7 +39,9 @@ module.exports = (server, model, lib, urlprefix ) ->
     for url,methods of resources
       urlparts = url.split("/")
       resource = urlparts[1]
+      console.dir resource
       vars.resources[ resource ] = { resourcename: resource, children: [] } if not vars.resources[ resource ]?
+      console.dir vars.resources
       methods_flat = []; 
       for name,method of methods
         schema = []; 
@@ -77,7 +79,6 @@ module.exports = (server, model, lib, urlprefix ) ->
     arr = []
     arr.push r for k,r of vars.resources 
     vars.resources = arr
-    console.dir vars.resources
     return mustache.render template, vars
 
   # register markdown url

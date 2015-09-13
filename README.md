@@ -1,10 +1,7 @@
-coffeerest-api-doc
-==================
-Unfancy rest apis
+Unfancy rest apis, automatic documentation generator extension for coffeerest-api
 
 <img alt="" src="https://github.com/coderofsalvation/coffeerest-api/raw/master/coffeerest.png" width="20%" />
 
-Automatic documentation generator extension for coffeerest-api
 
 <img alt="" src="https://raw.githubusercontent.com/coderofsalvation/coffeerest-api-doc/master/screenshot.png"/>
 

@@ -207,7 +207,6 @@
                 <pre>
                   <code>{{{replyschema_payload}}}</code>
                 </pre>
-
                 <h2>Possible return/errorcodes:</h2>
                 <pre>
                   <code>{{{replyschema_codes}}}</code>
@@ -218,10 +217,10 @@
 
             {{#resources}}
             <div class="panel panel-default">
-              {{#children}}
               <div class="panel-heading">
                 <h3 id="_{{resourcename}}" class="panel-title">/{{resourcename}}</h3>
               </div>
+              {{#children}}
               <div class="panel-body">
                 <div class="panel-group">
                   <div class="panel panel-white">
@@ -312,7 +311,7 @@
                                 </div>
                                 {{#notes}}
                                 <div class="alert alert-info">
-                                  {{{security}}}
+                                  {{{notes}}}
                                 </div>
                                 {{/notes}}
                                 <hr>
