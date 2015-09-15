@@ -66,6 +66,7 @@ module.exports = (server, model, lib, urlprefix ) ->
           notes: ( if method.notes? then method.notes else false )
           schema:  schema
           requestors: requestors
+          url: url
           payload: payload 
 
       vars.resources[ resource ].children.push { name: resource, url: url, methods: methods_flat }

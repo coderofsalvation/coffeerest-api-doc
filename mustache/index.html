@@ -229,118 +229,96 @@
                         <a class="collapsed" data-toggle="collapse" href="#panel__{{resourcename}}_"><span class="parent">{{{url}}}</span></a> 
                         <span class="methods">
                           {{#methods}}
-                          <a href="#_{{resourcename}}__{{methodname}}">
+                          <a href="#_{{resourcename}}__{{id}}">
                             <span class="badge badge_{{methodname}}">{{methodname}}</span>
                           </a>
+                          <div class="modal fade" tabindex="0" id="_{{resourcename}}__{{id}}">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
+
+                                <h4 class="modal-title" id="myModalLabel">
+                                  <span class="badge badge_{{methodname}}">{{methodname}}</span>
+                                  <span class="parent">{{{url}}}</span></h4>
+                                </div>
+
+                                <div class="modal-body">
+                                  <div class="alert alert-info">
+                                    <p>{{{description}}}</p>
+                                  </div>
+
+                                  <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#_{{resourcename}}__{{methodname}}_request" data-toggle="tab">Request</a></li>
+                                  </ul>
+
+                                  <div class="tab-content">
+                                    <div class="tab-pane active" id="_{{resourcename}}__{{methodname}}_request">
+                                      <h3>{{methodname}} {{host}}{{url}}</h3>
+
+                                      {{#payload}}
+                                      <p><small>Content-Type: application/json</small></p>
+                                      <p><strong>Example payload</strong>:</p>
+                                      <pre>
+                                        <code>{{{payload}}}</code>
+                                      </pre>
+                                      <p><strong>Data Types</strong>:</p>
+                                      <table class="table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th class="fieldname"><b>Fieldname</b></th><th><b>Type</b></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {{#schema}}
+                                          <tr>
+                                            <td>{{field}}</td>
+                                            <td>{{{schema}}}</td>
+                                          </tr>
+                                          {{/schema}}
+                                        </tbody>
+                                      </table>
+                                      {{/payload}}
+                                      <br>
+                                      <div class="alert alert-warning">
+                                        {{{security}}}
+                                      </div>
+                                      {{#notes}}
+                                      <div class="alert alert-info">
+                                        {{{notes}}}
+                                      </div>
+                                      {{/notes}}
+                                      <hr>
+                                      <div>
+                                        {{#requestors}}
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{id}}{{type}}" aria-expanded="false" aria-controls="{{id}}">{{type}}</button>
+                                        {{/requestors}}
+
+                                        {{#requestors}}
+                                        <div class="collapse" id="{{id}}{{type}}">
+                                          <div class="well">
+                                          <p><strong>{{type}} example</strong></p>
+                                          <p>
+                                            <small>
+                                            <pre><code>{{{code}}}</code></pre>
+                                            </small>
+                                          </p>
+                                          </div>
+                                        </div>
+                                        {{/requestors}}
+                                      </div>
+                                      <br/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           {{/methods}}
                         </span>
                       </h4>
                     </div>
 
-                    <div id="panel__{{resourcename}}_" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        <div class="resource-description">
-                          <p>flopje</p>
-                        </div>
-
-                        <div class="list-group">
-                          <div onclick="window.location.href = '#_{{resourcename}}__{{methodname}}'" class="list-group-item">
-                            <span class="badge badge_{{methodname}}">{{name}}</span>
-
-                            <div class="method_description">
-                              <p>{{description}}</p>
-                            </div>
-
-                            <div class="clearfix"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {{#methods}}
-                    <div class="modal fade" tabindex="0" id="_{{resourcename}}__{{methodname}}">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
-
-                          <h4 class="modal-title" id="myModalLabel">
-                            <span class="badge badge_{{methodname}}">{{methodname}}</span>
-                            <span class="parent">{{{url}}}</span>/</h4>
-                          </div>
-
-                          <div class="modal-body">
-                            <div class="alert alert-info">
-                              <p>{{{description}}}</p>
-                            </div>
-
-                            <ul class="nav nav-tabs">
-                              <li class="active"><a href="#_{{resourcename}}__{{methodname}}_request" data-toggle="tab">Request</a></li>
-                            </ul>
-
-                            <div class="tab-content">
-                              <div class="tab-pane active" id="_{{resourcename}}__{{methodname}}_request">
-                                <h3>{{methodname}} {{host}}{{url}}</h3>
-
-                                {{#payload}}
-                                <p><small>Content-Type: application/json</small></p>
-                                <p><strong>Example payload</strong>:</p>
-                                <pre>
-                                  <code>{{{payload}}}</code>
-                                </pre>
-                                <p><strong>Data Types</strong>:</p>
-                                <table class="table-striped">
-                                  <thead>
-                                    <tr>
-                                      <th class="fieldname"><b>Fieldname</b></th><th><b>Type</b></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {{#schema}}
-                                    <tr>
-                                      <td>{{field}}</td>
-                                      <td>{{{schema}}}</td>
-                                    </tr>
-                                    {{/schema}}
-                                  </tbody>
-                                </table>
-                                {{/payload}}
-                                <br>
-                                <div class="alert alert-warning">
-                                  {{{security}}}
-                                </div>
-                                {{#notes}}
-                                <div class="alert alert-info">
-                                  {{{notes}}}
-                                </div>
-                                {{/notes}}
-                                <hr>
-                                <div>
-                                  {{#requestors}}
-                                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{id}}{{type}}" aria-expanded="false" aria-controls="{{id}}">{{type}}</button>
-                                  {{/requestors}}
-
-                                  {{#requestors}}
-                                  <div class="collapse" id="{{id}}{{type}}">
-                                    <div class="well">
-                                    <p><strong>{{type}} example</strong></p>
-                                    <p>
-                                      <small>
-                                      <pre><code>{{{code}}}</code></pre>
-                                      </small>
-                                    </p>
-                                    </div>
-                                  </div>
-                                  {{/requestors}}
-                                </div>
-                                <br/>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {{/methods}}
                   </div>
                 </div>
               </div>
