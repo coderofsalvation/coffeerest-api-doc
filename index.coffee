@@ -82,28 +82,29 @@ module.exports = (server, model, lib, urlprefix ) ->
     vars.resources = arr
     return mustache.render template, vars
 
-  # register markdown url
-  console.log "registering REST resource: "+urlprefix+"/doc/markdown"
-  ( (urlprefix,model,me) ->
-      server.get urlprefix+"/doc/markdown", (req,res,next) ->
-          body = me.markdown model.resources, urlprefix, model
-          res.writeHead 200, 
-            'Content-Length': Buffer.byteLength(body),
-            'Content-Type': 'text/plain'
-          res.write(body)
-          res.end()
-          next()
-  )(urlprefix,model,@)
+  @.init = () ->
+    # register markdown url
+    console.log "registering REST resource: "+urlprefix+"/doc/markdown"
+    ( (urlprefix,model,me) ->
+        server.get urlprefix+"/doc/markdown", (req,res,next) ->
+            body = me.markdown model.resources, urlprefix, model
+            res.writeHead 200, 
+              'Content-Length': Buffer.byteLength(body),
+              'Content-Type': 'text/plain'
+            res.write(body)
+            res.end()
+            next()
+    )(urlprefix,model,@)
 
-  # register html url
-  console.log "registering REST resource: "+urlprefix+"/doc/html"
-  ( (urlprefix,model,me) ->
-      server.get urlprefix+"/doc/html", (req,res,next) ->
-          body = me.html model.resources, urlprefix, model
-          res.writeHead 200, 
-            'Content-Length': Buffer.byteLength(body),
-            'Content-Type': 'text/html'
-          res.write(body)
-          res.end()
-          next()
-  )(urlprefix,model,@)
+    # register html url
+    console.log "registering REST resource: "+urlprefix+"/doc/html"
+    ( (urlprefix,model,me) ->
+        server.get urlprefix+"/doc/html", (req,res,next) ->
+            body = me.html model.resources, urlprefix, model
+            res.writeHead 200, 
+              'Content-Length': Buffer.byteLength(body),
+              'Content-Type': 'text/html'
+            res.write(body)
+            res.end()
+            next()
+    )(urlprefix,model,@)
