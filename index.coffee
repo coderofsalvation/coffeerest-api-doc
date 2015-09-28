@@ -33,7 +33,7 @@ module.exports = (server, model, lib, urlprefix ) ->
     template = require('fs').readFileSync(__dirname+"/mustache/index.html").toString()
     vars     = model.doc 
     vars.replyschema_payload = JSON.stringify( defaults model.replyschema, null, 2 )
-    #vars.host += urlprefix 
+    vars.host += urlprefix 
     vars.replyschema_codes = JSON.stringify model.replyschema.messages, null, 2
     vars.resources = {}
     for url,methods of resources
