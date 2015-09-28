@@ -172,6 +172,15 @@
         }
 
         ul.nav li a{ text-transform: uppercase; }
+        .parameters { font-size:85%; }
+        th { padding-bottom:1.0em; text-decoration:underline; color:555; }
+        table { width:100% }
+        .alert-warning {
+          color: #555;
+          background-color: #EEE;
+          border-color: #DDD  
+        }
+        td { line-height:2.0em }
   </style>
 </head>
 
@@ -254,19 +263,23 @@
 
                                   <div class="tab-content">
                                     <div class="tab-pane active" id="_{{resourcename}}__{{methodname}}_request">
-                                      <h3>{{methodname}} {{host}}{{url}}</h3>
+                                      <p><small>{{methodname}} {{host}}{{url}} (Content-Type: application/json)</small></p>
+                                      <h3></h3>
+                                      {{#notes}}
+                                      <div class="alert alert-info parameters">
+                                        {{{notes}}}
+                                      </div>
+                                      {{/notes}}
 
                                       {{#payload}}
-                                      <p><small>Content-Type: application/json</small></p>
                                       <p><strong>Example payload</strong>:</p>
                                       <pre>
                                         <code>{{{payload}}}</code>
                                       </pre>
-                                      <p><strong>Data Types</strong>:</p>
-                                      <table class="table-striped">
+                                      <table class="table-striped parameters" >
                                         <thead>
                                           <tr>
-                                            <th class="fieldname"><b>Fieldname</b></th><th><b>Type</b></th>
+                                            <th class="fieldname"><b>PAYLOAD FIELD</b></th><th><b>TYPE</b></th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -279,15 +292,28 @@
                                         </tbody>
                                       </table>
                                       {{/payload}}
+                                      <hr>
+                                      <table class="table-striped parameters">
+                                        <thead>
+                                          <tr>
+                                            <th class="fieldname"><b>QUERY PARAM</b></th><th class="fieldname"><b>VALUE(S)</b></th><th>TYPE</th><th><b>INFO</b></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {{#query_params}}
+                                          <tr>
+                                            <td>?{{varname}}</td>
+                                            <td>{{info.values}}</td>
+                                            <td>{{info.param.type}}</td>
+                                            <td>{{{info.param.description}}}</td>
+                                          </tr>
+                                          {{/query_params}}
+                                        </tbody>
+                                      </table>
                                       <br>
-                                      <div class="alert alert-warning">
+                                      <div class="alert alert-warning parameters">
                                         {{{security}}}
                                       </div>
-                                      {{#notes}}
-                                      <div class="alert alert-info">
-                                        {{{notes}}}
-                                      </div>
-                                      {{/notes}}
                                       <hr>
                                       <div>
                                         {{#requestors}}

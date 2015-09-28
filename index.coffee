@@ -39,9 +39,7 @@ module.exports = (server, model, lib, urlprefix ) ->
     for url,methods of resources
       urlparts = url.split("/")
       resource = urlparts[1]
-      console.dir resource
       vars.resources[ resource ] = { resourcename: resource, children: [] } if not vars.resources[ resource ]?
-      console.dir vars.resources
       methods_flat = []; 
       for name,method of methods
         schema = []; 
@@ -51,6 +49,13 @@ module.exports = (server, model, lib, urlprefix ) ->
           schema.push { field:k, schema: util.inspect(v) } for k,v of method.payload 
           payload = JSON.stringify defaults({ type: 'object', properties: method.payload }),null,2
           payload_flat = JSON.stringify defaults({ type: 'object', properties: method.payload })
+
+        query_params = []; 
+        if method.query_params?
+          for queryvar, v of method.query_params
+            v.values = v.values.join(',')
+            query_params.push { varname: queryvar, info: v }
+          console.log JSON.stringify query_params,null,2
         requestors = []; for type,code of vars.request
           requestors.push 
             type: type 
@@ -65,10 +70,10 @@ module.exports = (server, model, lib, urlprefix ) ->
           description: method.description 
           notes: ( if method.notes? then method.notes else false )
           schema:  schema
+          query_params: (if query_params.length then query_params else undefined )
           requestors: requestors
           url: url
           payload: payload 
-
       vars.resources[ resource ].children.push { name: resource, url: url, methods: methods_flat }
       #for method,resource of methods
       #  #restext += "### "+method.toUpperCase()+" "+url+line
@@ -82,29 +87,28 @@ module.exports = (server, model, lib, urlprefix ) ->
     vars.resources = arr
     return mustache.render template, vars
 
-  @.init = () ->
-    # register markdown url
-    console.log "registering REST resource: "+urlprefix+"/doc/markdown"
-    ( (urlprefix,model,me) ->
-        server.get urlprefix+"/doc/markdown", (req,res,next) ->
-            body = me.markdown model.resources, urlprefix, model
-            res.writeHead 200, 
-              'Content-Length': Buffer.byteLength(body),
-              'Content-Type': 'text/plain'
-            res.write(body)
-            res.end()
-            next()
-    )(urlprefix,model,@)
+  # register markdown url
+  console.log "registering REST resource: "+urlprefix+"/doc/markdown"
+  ( (urlprefix,model,me) ->
+      server.get urlprefix+"/doc/markdown", (req,res,next) ->
+          body = me.markdown model.resources, urlprefix, model
+          res.writeHead 200, 
+            'Content-Length': Buffer.byteLength(body),
+            'Content-Type': 'text/plain'
+          res.write(body)
+          res.end()
+          next()
+  )(urlprefix,model,@)
 
-    # register html url
-    console.log "registering REST resource: "+urlprefix+"/doc/html"
-    ( (urlprefix,model,me) ->
-        server.get urlprefix+"/doc/html", (req,res,next) ->
-            body = me.html model.resources, urlprefix, model
-            res.writeHead 200, 
-              'Content-Length': Buffer.byteLength(body),
-              'Content-Type': 'text/html'
-            res.write(body)
-            res.end()
-            next()
-    )(urlprefix,model,@)
+  # register html url
+  console.log "registering REST resource: "+urlprefix+"/doc/html"
+  ( (urlprefix,model,me) ->
+      server.get urlprefix+"/doc/html", (req,res,next) ->
+          body = me.html model.resources, urlprefix, model
+          res.writeHead 200, 
+            'Content-Length': Buffer.byteLength(body),
+            'Content-Type': 'text/html'
+          res.write(body)
+          res.end()
+          next()
+  )(urlprefix,model,@)
