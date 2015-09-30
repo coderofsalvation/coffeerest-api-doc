@@ -1,10 +1,12 @@
 defaults = require 'json-schema-defaults'
 mustache = require 'mustache'
 util     = require 'util'
+clone    = (obj) -> JSON.parse( JSON.stringify obj )
 
 module.exports = (server, model, lib, urlprefix ) ->
 
   @.markdown = (resources, urlprefix, model) ->
+    resource = clone resources; model = clone model
     indent = (spaces,str) ->
       return str if str == undefined
       lines = str.split("\n");
@@ -30,6 +32,7 @@ module.exports = (server, model, lib, urlprefix ) ->
     return header+description+restext
     
   @.html = (resources, urlprefix, model) ->
+    resource = clone resources; model = clone model
     template = require('fs').readFileSync(__dirname+"/mustache/index.html").toString()
     vars     = model.doc 
     vars.replyschema_payload = JSON.stringify( defaults model.replyschema, null, 2 )
@@ -112,3 +115,5 @@ module.exports = (server, model, lib, urlprefix ) ->
           res.end()
           next()
   )(urlprefix,model,@)
+
+  return @
