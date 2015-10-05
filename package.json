@@ -1,6 +1,6 @@
 {
   "name": "coffeerest-api-doc",
-  "version": "0.1.46",
+  "version": "0.1.47",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,9 @@
   "repository": "https://github.com/coderofsalvation/coffeerest-api-doc",
   "keywords": ["coffeerest","coffeescript","rest","api","documentation","generator","documenter"],
   "license": "ISC",
+  "scripts":{
+    "prepublish": "coffee -c index.coffee"
+  }
   "dependencies": {
     "json-schema-defaults": "^0.1.1",
     "mustache": "^2.1.3"

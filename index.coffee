@@ -49,8 +49,9 @@ module.exports = (server, model, lib, urlprefix ) ->
         payload = false 
         payload_flat = false;
         if method.payload?
+          method.default = method.default || {}
           schema.push { field:k, schema: util.inspect(v) } for k,v of method.payload 
-          payload = JSON.stringify defaults({ type: 'object', properties: method.payload }),null,2
+          payload = JSON.stringify defaults({ default: method.default, type: 'object', properties: method.payload }),null,2
           payload_flat = JSON.stringify defaults({ type: 'object', properties: method.payload })
 
         query_params = []; 
