@@ -12,7 +12,7 @@
   "license": "ISC",
   "scripts":{
     "prepublish": "coffee -c index.coffee"
-  }
+  },
   "dependencies": {
     "json-schema-defaults": "^0.1.1",
     "mustache": "^2.1.3"
